@@ -1,0 +1,61 @@
+package com.cayden.socialMediaApi.entity;//This class will represent the characteristics of a comment
+
+import java.util.Date;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+@Entity //Tells JPA this class maps to a table in the database
+public class Comment {
+
+	private Long id; //each comment will have an ID
+	private String content; //the actual words of the comment
+	private Date date; //the date of the comment
+	private User user; //this will be be the user from the USER class
+
+	@JsonIgnore //post variable won't be sent to user when sending an instance of this class (hidden from JSON representation of this class)
+	private Post post; //post from the post class (will have all the cahracteristics of a post from that class)
+	
+	@Id//tells program this field is the primary key
+	@GeneratedValue(strategy = GenerationType.AUTO) //it should be auto_generated (or auto_incremented) .AUTO = auto_increment
+	public Long getId() {
+		return id;
+	}
+	public void setId(Long id) {
+		this.id = id;
+	}
+	public String getContent() {
+		return content;
+	}
+	public void setContent(String content) {
+		this.content = content;
+	}
+	public Date getDate() {
+		return date;
+	}
+	public void setDate(Date date) {
+		this.date = date;
+	}
+	@ManyToOne
+	@JoinColumn(name = "userId") //set up join relationships between other entity tables
+	public User getUser() {
+		return user;
+	}
+	public void setUser(User user) {
+		this.user = user;
+	}
+	@ManyToOne
+	@JoinColumn(name = "postId")
+	public Post getPost() {
+		return post;
+	}
+	public void setPost(Post post) {
+		this.post = post;
+	}
+}
