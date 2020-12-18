@@ -1,0 +1,16 @@
+package com.cayden.socialMediaApi.repository;
+
+import org.springframework.data.repository.CrudRepository;
+
+import com.cayden.socialMediaApi.entity.User;
+
+public interface UserRepository extends CrudRepository<User, Long> { //<entity class repository will manage, primary key
+	
+	public User findByUserName(String username); //we are saying we will use the class data type user and take the username that is entered in that class as the method of findUserName
+
+	
+	//Spring knows to take a String, find the row in the database that matches that String, then pulls
+	//all the characteristics that we have defined in that class apart of the USER class
+						//(Id, username, profilepictureurl, )
+							//following, posts, and password all ignored
+}
